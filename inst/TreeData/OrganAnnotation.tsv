@@ -1,26 +1,4 @@
 Stage	tissue	Chinese	name	layer	Mark
-Adult	Right_Fore_Leg(Rf)	右前腿	Rf	ectoderm	Legs
-Adult	Right_Middle_Leg(Rm)	右中腿	Rm	ectoderm	Legs
-Adult	Right_Hind_Leg(Rh)	右后腿	Rh	ectoderm	Legs
-Adult	left_Fore_Leg(Lf)	左前腿	Lf	ectoderm	Legs
-Adult	left_Middle_Leg(Lm)	左中腿	Lm	ectoderm	Legs
-Adult	left_Hind_Leg(Lh)	左后腿	Lh	ectoderm	Legs
-Adult	Compound_Eyes (Ey)	复眼	Ey	ectoderm	Nervous system
-Adult	Crop(Cr)	嗉囊	Cr	ectoderm	Digestive system
-Adult	VNC(Vc)	腹神经束	Vc	ectoderm	Nervous system
-Adult	Brain(Br)	脑	Br	ectoderm	Nervous system
-Adult	Thoracic_Muscl(Tm)	胸肌	Tm	mesoderm	Others
-Adult	Salivary_Gland(Sg)	唾液腺	Sg	ectoderm	Digestive system
-Adult	Testis(Te)	睾丸	Te	germline	Reproductive system
-Adult	Malpighian_Tubule(Mp)	马尔皮根小管	Mp	ectoderm	Others
-Adult	Midgut(Mg)	中肠	Mg	endoderm	Digestive system
-Adult	Hindgut(Hg)	后肠	Hg	ectoderm	Digestive system
-Adult	Fat_Body(Fb)	脂肪体	Fb	mesoderm	Others
-Adult	Haltere(Hl)	平衡棒	Hl	ectoderm	Appendages
-Adult	Mouthparts(Mo)	口器	Mo	ectoderm	Digestive system
-Adult	Accessory_Gland(Ag)	附属腺	Ag	ectoderm	Reproductive system
-Adult	Wings(Wg)	翅膀	Wg	ectoderm	Appendages
-Adult	Geitalia(Ge)	生殖器	Ge	ectoderm	Reproductive system
 Larva	Salivary Gland	唾液腺	Sg	ectoderm	Digestive system
 Larva	Eye-Antennal disc	眼触角盘	Ey	ectoderm	Nervous system
 Larva	Brain disc	脑盘	Br	ectoderm	Nervous system

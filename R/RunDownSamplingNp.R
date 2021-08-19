@@ -2,6 +2,7 @@
 #'
 
 #' @export
+# Down-sampling for each organ of each individual
 GetNpDynamic_DownSampling <- function(FFFly,TTTreeAnn,TTTipInfo,FFFilterOrgan){
   tmp.CorrectedLTT <- list()
 
@@ -27,6 +28,7 @@ GetNpDynamic_DownSampling <- function(FFFly,TTTreeAnn,TTTipInfo,FFFilterOrgan){
 
 
 #' @export
+# Estimate Np dynamic
 RunDownSamplingNp <- function(){
   message("## 1/6 ## Load in OrganInfor.ann")
   load("PackagedData.RData")

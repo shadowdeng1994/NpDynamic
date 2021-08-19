@@ -3,6 +3,7 @@
 
 
 #' @export
+# Simulate an artifical tree with panmictic structure
 GetSimTree_Panmictic <- function(FFFile,DDDynamic_1,DDDynamic_2,MMMutRate){
   message("## 1/6 ## Load in Ref")
   var.Ref <- LoadInRef()
@@ -32,6 +33,7 @@ GetSimTree_Panmictic <- function(FFFile,DDDynamic_1,DDDynamic_2,MMMutRate){
 }
 
 #' @export
+# Simulate an artifical tree with two sub-population
 GetSimTree_Structured <- function(FFFile,DDDynamic_1,DDDynamic_2,MMMutRate){
   message("## 1/6 ## Load in Ref")
   var.Ref <- LoadInRef()

@@ -5,6 +5,7 @@
 GetNpDynamic_VarMutRate <- function(FFFly,TTTreeAnn,TTTipInfo,FFFilterOrgan){
   tmp.CorrectedLTT <- list()
 
+  # Analysis with different mutation rate.
   for(MMMutRate in seq(0.5,1.5,0.25)){
     tmp.step <- 1
     tmp.window <- GetWindow(TTTipInfo,tmp.step)*MMMutRate

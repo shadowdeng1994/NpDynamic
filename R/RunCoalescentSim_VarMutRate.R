@@ -5,6 +5,7 @@
 
 
 #' @export
+# Simulate an artifical tree with different per-generation mutation rate.
 GetNpDynamic_Sim_VarMutRate <- function(DDData,MMMutRate){
   message("## 1/2 ## Load in SimTree")
   load(paste0(DDData,".RData"))
@@ -32,7 +33,7 @@ GetNpDynamic_Sim_VarMutRate <- function(DDData,MMMutRate){
   }) %>% bind_rows %>% mutate(Data=DDData,Window=tmp.window)
 }
 
-
+# Get Np dynamic
 RunCoalescentSim_VarMutRate <- function(){
   tmp.Dynamic <- 2^c(0:14,rep(15,5),14:5)
 

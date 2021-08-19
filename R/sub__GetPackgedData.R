@@ -1,6 +1,7 @@
 #' Subfunctions for GetPackagedData.R
 #'
 
+# load in organ information
 LoadInOrganInfo <- function(){
   tmp.Mark <-
     c("Legs",

@@ -1,7 +1,7 @@
 #' Subfunctions for GetGst.R
 #'
 
-
+# Extract the organ component for each node.
 GetPopComponent <- function(TTTreeAnn){
   TTTreeAnn$Tree %>% nodeHeights %>%
     as.data.frame %>% .$V1 %>% unique %>%
@@ -17,6 +17,7 @@ GetPopComponent <- function(TTTreeAnn){
       }) %>% bind_rows
 }
 
+# After shuffling
 GetPopComponent_Shuffle <- function(TTTreeAnn){
   tmp.shffule <- TTTreeAnn$TipInfo %>% mutate(Organ=sample(Organ))
   TTTreeAnn$Tree %>% nodeHeights %>%
@@ -33,7 +34,7 @@ GetPopComponent_Shuffle <- function(TTTreeAnn){
     }) %>% bind_rows
 }
 
-
+# Calcuate Gst with multi-factor
 GetGstWithPopComp <- function(FFFly,PPPopcomp){
   PPPopcomp[[FFFly]] %>% .$CutHeight %>% unique %>%
     lapply(function(hhh){
@@ -57,6 +58,7 @@ GetGstWithPopComp <- function(FFFly,PPPopcomp){
 }
 
 
+# Calculate one-to-others Gst
 GetGstWithPopComp_Organ <- function(FFFly,PPPopcomp){
   tmp2 <- list()
   for(ooo in PPPopcomp[[FFFly]] %>% .$Organ %>% unique){

@@ -2,6 +2,7 @@
 #'
 
 #' @export
+# Get an artifical tree with given Np dynamic
 GetTreeWithNpDynamic <- function(FFFile,DDDynamic,MMMutRate){
   message("## 1/6 ## Load in Ref")
   var.Ref <- LoadInRef()

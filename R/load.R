@@ -1,7 +1,7 @@
 #' Load in unexport function for Np dynamic reconstruction
 #'
 
-
+# Some customized function.
 fun.GetCombinationFromList <- function(ListIn){
   tmp.out <- ListIn[[1]] %>% tbl_df %>% mutate(AAA=1)
   for(i in 2:length(ListIn)){ tmp.out <- tmp.out %>% left_join(ListIn[[i]] %>% tbl_df %>% mutate(AAA=1),by="AAA")}

@@ -1,6 +1,7 @@
 #' Subfunctions for RunDownSamplingNp.R
 #'
 
+# run ks test
 RunKSTest <- function(CCcumeNp_DownSampling){
   CCcumeNp_DownSampling %>%
     select(Fly,Organ,SampleSize,MutBin,CumeNp) %>%
@@ -11,7 +12,7 @@ RunKSTest <- function(CCcumeNp_DownSampling){
     group_by %>% mutate(Sig=(padj<0.05))
 }
 
-
+# get sample size for each organ.
 GetLibSize <- function(NNNpDynamic_L5,NNNpDynamic_L6){
   rbind(NNNpDynamic_L5$Tip2Height %>% mutate(Fly="L5"),
         NNNpDynamic_L6$Tip2Height %>% mutate(Fly="L6")) %>%

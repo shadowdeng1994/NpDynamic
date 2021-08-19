@@ -1,10 +1,12 @@
 #' Subfunctions for FitWithSShapeCurve.R
 #'
 
+# Fitting with S-shape curve using R package, growthcurver.
 FitGrowthCurve <- function(FFFly,FFFilterOrgan){
   FFFilterOrgan %>% .$Organ %>% unique %>%
     lapply(function(ooo){
       tmp1 <- var.cumeNp %>% filter(Fly==FFFly,Organ==ooo)
+      # Return the coefficients and the predicts.
       tmp2 <- growthcurver::SummarizeGrowth(tmp1$MutBin,tmp1$CumeNp,bg_correct="none")
       rbind(
         tmp2$vals %>%

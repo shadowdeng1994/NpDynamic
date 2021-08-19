@@ -2,6 +2,7 @@
 #'
 
 #' @export
+# down-sampling
 GetNpDynamic_90Sampling <- function(FFFly,TTTreeAnn,TTTipInfo,FFFilterOrgan){
   tmp.CorrectedLTT <- list()
 
@@ -27,6 +28,7 @@ GetNpDynamic_90Sampling <- function(FFFly,TTTreeAnn,TTTipInfo,FFFilterOrgan){
 
 
 #' @export
+# Proceed down-sampling for many times
 RunNpBootrap <- function(){
   message("## 1/4 ## Load in OrganInfor.ann")
   load("PackagedData.RData")

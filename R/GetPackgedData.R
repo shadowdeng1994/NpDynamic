@@ -3,6 +3,7 @@
 
 
 #' @export
+# Subfunction for preprocessing the result of iqtree
 GetTreeAnn <- function(FFFly){
   tmp.tree <- LoadInTree(FFFly)
   tmp.ann <- LoadInTreeAnn(FFFly)
@@ -26,6 +27,7 @@ GetTreeAnn <- function(FFFly){
 }
 
 #' @export
+# Subfunction for preprocessing the ccs data
 GetRawReads <- function(FFFly,TTTreeAnn){
   tmp.RawReads <- list()
   tmp.RawReads[["Fly"]] <- FFFly
@@ -36,6 +38,7 @@ GetRawReads <- function(FFFly,TTTreeAnn){
   return(tmp.RawReads)
 }
 
+# Subfunction for summarising the tips' information
 GetTipInfo <- function(FFFly,TTTreeAnn,RRRawReads,RRRef){
   tmp.Tip2AllMut <- GetTip2AllMut(FFFly,RRRawReads,RRRef)
   tmp.Tip2SNP <- GetTip2SNP(tmp.Tip2AllMut,TTTreeAnn)
@@ -53,10 +56,13 @@ GetTipInfo <- function(FFFly,TTTreeAnn,RRRawReads,RRRef){
 }
 
 #' @export
+# Inferring Np dynamic
 GetNpDynamic <- function(FFFly,TTTreeAnn,TTTipInfo,FFFilterOrgan){
+  # Split tree height into cell division according to per-generation mutation rate
   tmp.step <- 1
   tmp.window <- GetWindow(TTTipInfo,tmp.step)
 
+  # Calculate corrected Np
   tmp.CorrectedLTT <- list()
   for(ooo in FFFilterOrgan$Organ %>% unique){
     tmp.LTT <- GetAllLTT(TTTreeAnn,TTTipInfo,tmp.step,tmp.window,ooo)

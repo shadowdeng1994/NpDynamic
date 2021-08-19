@@ -1,6 +1,7 @@
 #' Subfunctions for RunCoalescentSim_VarMutRate.R
 #'
 
+# Extract subtree
 GetSubTreeWithNode2Height <- function(TTTree,NNNode2Height,RRRatio){
   NNNode2Height %>%
     select(Node,NodeHeight,Tip) %>% filter(!is.na(Tip)) %>%
@@ -8,13 +9,13 @@ GetSubTreeWithNode2Height <- function(TTTree,NNNode2Height,RRRatio){
     get_subtree_with_tips(TTTree,.,force_keep_root = T) %>% .$subtree
 }
 
-
-
+# Calculate LTT under different per-generation mutation rate.
 GetAllLTT_Sim <- function(SSSubNode2Height,SSStep,WWWindow){
   SSSubNode2Height %>% fun.GetLTT(.,WWWindow-1e-5,SSSubNode2Height$NodeHeight %>% max-1e-5,WWWindow) %>%
     mutate(MutBin=dense_rank(Height))
 }
 
+# Calculate LTT decrease under different per-generation mutation rate.
 GetDelta_n_Sim <- function(SSSubNode2Tip,SSSubLTT,SSStep,ttt){
   tmp.out <- SSSubLTT %>% filter(MutBin==ttt-SSStep|MutBin==ttt) %>%
     left_join(SSSubNode2Tip,by="Node") %>%
@@ -35,6 +36,7 @@ GetDelta_n_Sim <- function(SSSubNode2Tip,SSSubLTT,SSStep,ttt){
   return(tmp.out)
 }
 
+# Estimate Np dynamic under different per-generation mutation rate.
 GetCorrectedLTT_Sim <- function(LLLTTT,DDDelta_n){
   LLLTTT %>% group_by(MutBin,Height) %>% summarise %>% group_by %>%
     left_join(DDDelta_n) %>%

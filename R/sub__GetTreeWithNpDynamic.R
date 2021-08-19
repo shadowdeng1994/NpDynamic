@@ -2,13 +2,14 @@
 #'
 
 
-
+# Get Np dynamic table
 GetNpDynamicTable <- function(DDDynamic){
   DDDynamic %>% tbl_df %>%
     rename(NpSize=value) %>%
     mutate(ApproSize=round(DDDynamic),Generation=1:n())
 }
 
+# Get mutation pool for mutation assignment
 GetMutPool <- function(RRRef){
   RRRef %>%
     mutate(Alt=NA,Alt=replace(Alt,Base=="C","T"),Alt=replace(Alt,Base=="G","A")) %>%
@@ -17,6 +18,7 @@ GetMutPool <- function(RRRef){
     mutate(MutID=1:n())
 }
 
+# Simulation cell division and mutation accumulation
 AssignDivisionAndMutations <- function(DDDynamicTable,PPPool,MMMutRate){
   tmp.Division <- list()
   tmp.Division[[1]] <- data.frame("CellID"=1:DDDynamicTable$NpSize[1]) %>% tbl_df %>%
@@ -39,6 +41,7 @@ AssignDivisionAndMutations <- function(DDDynamicTable,PPPool,MMMutRate){
   return(tmp.out)
 }
 
+# Simulate cell division
 GetDivisionTable <- function(DDDivision){
   DDDivision %>% arrange(Parent) %>%
     mutate(Tip=paste0("C",CellID,"T:0")) %>%
@@ -48,6 +51,7 @@ GetDivisionTable <- function(DDDivision){
     arrange(Generation)
 }
 
+# Transfer into newick format
 GetNewickString <- function(DDDivisionTable){
   tmp.NewickString <- "(C0T:0);"
   for(iii in 1:nrow(DDDivisionTable)){
@@ -56,6 +60,7 @@ GetNewickString <- function(DDDivisionTable){
   return(tmp.NewickString)
 }
 
+# Merging subpopulation
 GetDivisionTable_Structured <- function(DDDivision,PPPop){
   DDDivision %>% arrange(Parent) %>%
     mutate(Tip=paste0("C",CellID,"T_",PPPop,":0")) %>%
@@ -65,6 +70,7 @@ GetDivisionTable_Structured <- function(DDDivision,PPPop){
     arrange(Generation)
 }
 
+# Transfer into newick format
 GetNewickString_Structured <- function(DDDivisionTable,PPPop){
   tmp.NewickString <- paste0("(C0T_",PPPop,":0);")
   for(iii in 1:nrow(DDDivisionTable)){

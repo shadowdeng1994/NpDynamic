@@ -1,10 +1,12 @@
 #' Subfunctions for GetNpDynamic.R
 #'
 
+# Get window size with per-generation mutation rate
 GetWindow <- function(TTTipInfo,SSStep){
   1/TTTipInfo$Height2MutNum$coefficients[[2]]/SSStep
 }
 
+# Get LTT with tree height
 GetLTT <- function(NNNode2Height,From,To,By){
   seq(From,To,By) %>%
     lapply(function(hhh){
@@ -12,6 +14,7 @@ GetLTT <- function(NNNode2Height,From,To,By){
     }) %>% bind_rows
 }
 
+# Get all LTT from Q0 to Q95
 GetAllLTT <- function(TTTreeAnn,TTTipInfo,sss,www,ooo){
   TTTreeAnn$Node2Organ %>%
     filter(Organ==ooo) %>%
@@ -24,6 +27,7 @@ GetAllLTT <- function(TTTreeAnn,TTTipInfo,sss,www,ooo){
     mutate(MutBin=dense_rank(Height))
 }
 
+# down-sampling
 GetAllLTT_90Sampling <- function(TTTreeAnn,TTTipInfo,sss,www,ooo){
   TTTipInfo$Tip2Height %>%
     filter(Organ==ooo) %>%
@@ -38,6 +42,7 @@ GetAllLTT_90Sampling <- function(TTTreeAnn,TTTipInfo,sss,www,ooo){
     mutate(MutBin=dense_rank(Height))
 }
 
+# Get all LTT after down-sampling
 GetAllLTT_DownSampling <- function(TTTreeAnn,TTTipInfo,sss,www,ooo,nnn){
   TTTipInfo$Tip2Height %>%
     filter(Organ==ooo) %>%
@@ -52,13 +57,16 @@ GetAllLTT_DownSampling <- function(TTTreeAnn,TTTipInfo,sss,www,ooo,nnn){
     mutate(MutBin=dense_rank(Height))
 }
 
+# Calcuating minimum LTT decrease on each generation
 GetDelta_n <- function(TTTreeAnn,LLLTT,sss,ttt){
   tmp.step <- sss
+  # LTT decrease between g and g-1
   tmp.out <- LLLTT %>% filter(MutBin==ttt-tmp.step|MutBin==ttt) %>%
     left_join(TTTreeAnn$Node2Tips,by="Node") %>%
     group_by(Tip) %>% filter(n()==2) %>%
     group_by(TTT=c("AncLTT","LTT")[dense_rank(MutBin)]) %>% summarise(LTT=length(Node %>% unique)) %>%
     spread(TTT,LTT) %>% summarise(MutBin=ttt,LTT=LTT,Delta_n=LTT-AncLTT,Step=tmp.step)
+  # if D(g,g-1) equal to 0, move to g-2. Keep going until D(g,g-j) over 0 or g-j less 0.
   while(tmp.out$Delta_n==0){
     tmp.step <- tmp.step+1
     if((ttt-tmp.step)<=0){ break }
@@ -71,6 +79,7 @@ GetDelta_n <- function(TTTreeAnn,LLLTT,sss,ttt){
   return(tmp.out)
 }
 
+# Transform LTT to Np.
 GetCorrectedLTT <- function(FFFly,OOOrgan,LLLTTT,DDDelta_n){
   LLLTTT %>% group_by(MutBin,Height) %>% summarise %>% group_by %>%
     left_join(DDDelta_n) %>%
@@ -79,6 +88,7 @@ GetCorrectedLTT <- function(FFFly,OOOrgan,LLLTTT,DDDelta_n){
     mutate(Fly=FFFly,Organ=OOOrgan)
 }
 
+# Calculating cumulative sum of Np
 GetCumeNp <- function(NNNpDynamic_L5,NNNpDynamic_L6){
   rbind(NNNpDynamic_L5$LTT,NNNpDynamic_L6$LTT) %>%
     filter(MutBin>2) %>%
@@ -88,6 +98,7 @@ GetCumeNp <- function(NNNpDynamic_L5,NNNpDynamic_L6){
     group_by
 }
 
+# down-sampling
 GetCumeNp_90Sampling <- function(NNNpDynamic_90Sampling){
   NNNpDynamic_90Sampling %>%
     filter(MutBin>2) %>%
@@ -97,6 +108,7 @@ GetCumeNp_90Sampling <- function(NNNpDynamic_90Sampling){
     group_by
 }
 
+# donw-sampling
 GetCumeNp_DownSampling <- function(NNNpDynamic_DownSampling){
   NNNpDynamic_DownSampling %>%
     filter(MutBin>2) %>%
@@ -106,6 +118,7 @@ GetCumeNp_DownSampling <- function(NNNpDynamic_DownSampling){
     group_by
 }
 
+# Calculating under variant mutation rate.
 GetCumeNp_VarMutRate <- function(NNNpDynamic_VarMutRate){
   NNNpDynamic_VarMutRate %>%
     filter(MutBin>2) %>%
